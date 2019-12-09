@@ -4,6 +4,7 @@ import (
   os
   cli
   conf
+  fshare
 )
 
 fn main() {
@@ -41,6 +42,8 @@ fn main() {
 
   config.use_env(fs_user, fs_pass, fs_port)
   // TODO finally, we override it again with cli input if existed
+
+  client := fshare.new_client(config)
 
   // current result
   println('Hello World!, $config')
