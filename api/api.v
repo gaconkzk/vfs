@@ -16,3 +16,8 @@ pub struct Session {
   token      string
   session_id string
 }
+
+pub struct Error {
+  code string
+  msg  string
+}
