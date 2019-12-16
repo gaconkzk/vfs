@@ -5,7 +5,12 @@ import (
   cli
   conf
   fshare
+  glfw
 )
+
+// Seem glfw error - not sure why, but after all necessaries glfw
+// the <GL/gl.h> still can't not be found
+#flag linux -DGLFW_INCLUDE_NONE
 
 fn main() {
   // TODO then, we will read json file from installed
@@ -45,6 +50,6 @@ fn main() {
 
   client := fshare.new_client(config)
 
-  // current result
-  println('Hello World!, $config')
+  // TODO what do you want to do, current result
+
 }
