@@ -9,8 +9,9 @@ import (
 )
 
 // Seem glfw error - not sure why, but after all necessaries glfw
-// the <GL/gl.h> still can't not be found
-#flag linux -DGLFW_INCLUDE_NONE
+// the <GL/gl.h> can't not be found in /usr/include
+// FIXED - missing the most important lib: libgl-dev
+// #flag linux -DGLFW_INCLUDE_NONE
 
 fn main() {
   // TODO then, we will read json file from installed
