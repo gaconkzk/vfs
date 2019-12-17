@@ -1,4 +1,4 @@
-module api
+module fshare
 
 import (
   conf

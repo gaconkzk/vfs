@@ -3,13 +3,12 @@ module fshare
 import (
   http
   json
-  api
   conf
   os
 )
 
 const (
-  base_url = 'https://api.fshare.vn/api'
+  base_url = 'https://fshare.vn/api'
 )
 
 fn req(method string, path string, body string, session_id string) http.Response {
@@ -31,7 +30,7 @@ fn req(method string, path string, body string, session_id string) http.Response
   return response
 }
 
-fn login(conf conf.Configuration) api.Session {
+fn login(conf conf.Configuration) Session {
   login_payload := '{
   "user_email": "$conf.username",
   "password": "$conf.password",
@@ -39,15 +38,15 @@ fn login(conf conf.Configuration) api.Session {
 }'
 
   res := req('POST', 'user/login', login_payload, '')
-  session := json.decode(api.Session, res.text) or {
+  session := json.decode(Session, res.text) or {
     panic(err)
   }
 
   return session
 }
 
-pub fn new_client(conf conf.Configuration) api.Client {
-  mut client := api.Client{ conf: conf }
+pub fn new_client(conf conf.Configuration) Client {
+  mut client := Client{ conf: conf }
   client.session = login(conf)
 
   return client
