@@ -1,7 +1,7 @@
 module conf
 
 import (
-  strings
+  os
   json
 )
 
@@ -10,7 +10,6 @@ import (
  */
 pub struct Configuration {
 pub mut:
-  port     int
   username string
   password string
 }
@@ -24,7 +23,7 @@ pub mut:
 //   return 'Configuration(username: $c.username, password: $pass, port: $c.port)'
 // }
 
-pub fn (c mut Configuration) use_env(fs_user string, fs_pass string, fs_port string) {
+pub fn (c mut Configuration) use_env(fs_user string, fs_pass string ) {
   if fs_user != '' {
     c.username = fs_user
   }
@@ -32,16 +31,37 @@ pub fn (c mut Configuration) use_env(fs_user string, fs_pass string, fs_port str
   if fs_pass != '' {
     c.password = fs_pass
   }
-
-  if fs_port != '' {
-    c.port = fs_port.int()
-  }
 }
 
-pub fn from_json(data string) Configuration {
+fn from_json(data string) Configuration {
   config := json.decode(Configuration, data) or {
     panic(err)
   }
 
   return config
+}
+
+
+pub fn load(env string, file_name string) Configuration {
+  mut conf_path := os.getenv(env)
+  conf_path = if conf_path == '' {
+    // no default location, use our default
+    '${os.home_dir()}.vfs/$file_name'
+  } else {
+    '${conf_path}/$file_name'
+  }
+
+  if !os.exists(conf_path) {
+    print('Configuration not existed: `$conf_path`, ')
+    conf_path = './data.json'
+  }
+
+  println('Using: `$conf_path`')
+
+  data := os.read_file(conf_path) or {
+    eprintln('Can\'t not read ${conf_path}.')
+    exit(-1)
+  }
+
+  return from_json(data)
 }

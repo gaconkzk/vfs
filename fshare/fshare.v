@@ -5,6 +5,7 @@ import (
   json
   api
   conf
+  os
 )
 
 const (
@@ -50,4 +51,18 @@ pub fn new_client(conf conf.Configuration) api.Client {
   client.session = login(conf)
 
   return client
+}
+
+pub fn exec(cmd cli.Command) {
+  user := cmd.flags.get_string('user') or { os.getenv("VFS_FS_USER") }
+  pass := cmd.flags.get_string('pass') or { os.getenv("VFS_FS_PASS") }
+
+  config := conf.Configuration{
+    username: user,
+    password: pass,
+  }
+
+  println(config)
+
+  client := fshare.new_client(config)
 }
