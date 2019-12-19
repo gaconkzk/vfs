@@ -5,7 +5,7 @@ import (
 )
 
 pub struct Client {
-  conf     conf.Configuration
+  conf     conf.FShare
 pub mut:
   session  Session
 }

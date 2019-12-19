@@ -8,6 +8,6 @@ import (
 
 fn main() {
   config := conf.load('VFS_HOME', 'data.json')
-  mut cmd := vcli.init_command(config)
+  mut cmd := vcli.cmd(config)
   cmd.parse(os.args)
 }

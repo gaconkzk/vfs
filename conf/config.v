@@ -10,27 +10,13 @@ import (
  */
 pub struct Configuration {
 pub mut:
-  username string
-  password string
+  fshare FShare
 }
 
-// V-BUG-001: .str not available until we try to construct
-//        a simple Configuration object first
-// V-BUG-001: can't print struct since .str not available
-// fn (c Configuration) str() string {
-//   // masking password
-//   pass := strings.repeat(`*`, c.password.len)
-//   return 'Configuration(username: $c.username, password: $pass, port: $c.port)'
-// }
-
-pub fn (c mut Configuration) use_env(fs_user string, fs_pass string ) {
-  if fs_user != '' {
-    c.username = fs_user
-  }
-
-  if fs_pass != '' {
-    c.password = fs_pass
-  }
+pub struct FShare {
+pub mut:
+  username string
+  password string
 }
 
 fn from_json(data string) Configuration {
@@ -40,7 +26,6 @@ fn from_json(data string) Configuration {
 
   return config
 }
-
 
 pub fn load(env string, file_name string) Configuration {
   mut conf_path := os.getenv(env)
@@ -52,11 +37,8 @@ pub fn load(env string, file_name string) Configuration {
   }
 
   if !os.exists(conf_path) {
-    print('Configuration not existed: `$conf_path`, ')
     conf_path = './data.json'
   }
-
-  println('Using: `$conf_path`')
 
   data := os.read_file(conf_path) or {
     eprintln('Can\'t not read ${conf_path}.')
