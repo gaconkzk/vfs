@@ -17,6 +17,6 @@ pub fn cmd(config conf.Configuration) cli.Command {
 
 	cmd.add_command(fshare.cmd(config.fshare))
 
-  cmd.add_command(vveird.cmd(config))
+  cmd.add_command(vveird.cmd(config.vveird))
 	return cmd
 }

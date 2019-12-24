@@ -11,12 +11,26 @@ import (
 pub struct Configuration {
 pub mut:
   fshare FShare
+  vveird Window
 }
 
 pub struct FShare {
 pub mut:
   username string
   password string
+}
+
+pub struct Window {
+pub mut:
+  width int
+  height int
+  font Font
+}
+
+pub struct Font {
+pub mut:
+  size int
+  family string
 }
 
 fn from_json(data string) Configuration {
@@ -41,8 +55,7 @@ pub fn load(env string, file_name string) Configuration {
   }
 
   data := os.read_file(conf_path) or {
-    eprintln('Can\'t not read ${conf_path}.')
-    exit(-1)
+    panic('Can\'t not read ${conf_path}.')
   }
 
   return from_json(data)

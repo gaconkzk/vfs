@@ -3,3 +3,5 @@ vfs
 data.json
 
 **/*.c
+
+fns.txt
