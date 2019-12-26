@@ -10,6 +10,7 @@ import (
   // freetype
   time
   vveird.ui
+  vveird.ui.layout
 )
 
 pub fn cmd(config conf.Window) cli.Command {
@@ -23,6 +24,10 @@ pub fn cmd(config conf.Window) cli.Command {
   return wcmd
 }
 
+fn (v Vveird) initialize() {
+  glfw.init_glfw()
+}
+
 pub fn exec(cmd cli.Command) {
   // todo - window config from cmd
 
@@ -31,7 +36,16 @@ pub fn exec(cmd cli.Command) {
   }
 
   vveird.initialize()
-  // go vveird.loop()
+
+
+
+  // todo adding components
+  // menu := ...
+  // left_sidebar := ...
+  // right_sidebar := ...
+  // content := ...
+  // layout := ...
+  // vveird.layout(layout)
 
   vveird.process()
 
@@ -102,13 +116,12 @@ fn (v Vveird) draw() {
 }
 
 fn (v Vveird) process() {
-  for {
-    v.draw()
-  }
+  v.drawer.process()
 }
 
 pub struct Vveird {
 mut:
+  drawer ui.Drawer
   states States
 
   main &ui.Window
