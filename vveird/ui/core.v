@@ -15,6 +15,18 @@ mut:
 	ft &freetype.FreeType
 }
 
+pub fn make_drawer() Drawer {
+	mut d := Drawer {
+		current: 0
+		ctx: 0
+		ft: 0
+	}
+
+	d.initialize()
+
+	return d
+}
+
 pub fn (d mut Drawer) initialize() {
 	glfw.init_glfw()
 
@@ -67,5 +79,8 @@ pub fn (d Drawer) process() {
 
   for !d.current.should_close() {
 		d.ctx.draw_rect(0, 0, 900, 800, gx.Color{0, 0, 0})
+
+		d.current.swap_buffers()
+		glfw.wait_events()
 	}
 }

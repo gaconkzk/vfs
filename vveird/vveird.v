@@ -10,7 +10,6 @@ import (
   // freetype
   time
   vveird.ui
-  vveird.ui.layout
 )
 
 pub fn cmd(config conf.Window) cli.Command {
@@ -24,20 +23,18 @@ pub fn cmd(config conf.Window) cli.Command {
   return wcmd
 }
 
-fn (v Vveird) initialize() {
-  glfw.init_glfw()
+fn (v mut Vveird) set_drawer(d ui.Drawer) {
+  v.drawer = d
 }
 
 pub fn exec(cmd cli.Command) {
   // todo - window config from cmd
 
-  vveird := &Vveird{
+  mut vveird := &Vveird{
     main: 0
   }
 
-  vveird.initialize()
-
-
+  vveird.set_drawer(ui.make_drawer())
 
   // todo adding components
   // menu := ...
@@ -48,65 +45,6 @@ pub fn exec(cmd cli.Command) {
   // vveird.layout(layout)
 
   vveird.process()
-
-  // main.register_event()
-
-
-  // mut vveird := &Vveird {
-  // 	main: 0
-  // 	vg: 0
-  // 	ft: 0
-  // }
-
-  // glfw.init_glfw()
-
-  // w := glfw.create_window(glfw.WinCfg {
-  // 	width: 900
-  // 	height: 800
-  // 	borderless: false
-  // 	title: 'VVeird'
-  // 	ptr: vveird
-  // })
-
-  // vveird.main = w
-
-  // w.make_context_current()
-  // gl.init_glad()
-
-  // // gg config
-  // cfg := gg.Cfg {
-  // 	width: 900
-  // 	height: 800
-  // 	font_size: 14
-  // 	use_ortho: true
-  // 	retina: true
-  // 	scale: 2
-  // 	window_user_ptr: 0
-  // }
-  // vveird.vg = gg.new_context(cfg)
-
-  // // font
-  // vveird.ft = freetype.new_context(cfg)
-
-  // w.set_user_ptr(vveird)
-
-  // go vveird.loop()
-
-  // gl.clear()
-  // gl.clear_color(0, 0, 0, 255)
-
-  // vveird.refresh = true
-  // for !vveird.main.should_close() {
-  // 	if vveird.refresh {
-  // 		gl.clear()
-  // 		gl.clear_color(0, 0, 0, 255)
-  // 	}
-
-  // 	vveird.draw()
-
-  // 	w.swap_buffers()
-  // 	glfw.wait_events()
-  // }
 }
 
 fn (v Vveird) draw() {
