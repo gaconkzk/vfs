@@ -1,7 +1,7 @@
 module fshare
 
 import (
-  http
+  net.http
   json
   conf
   os
