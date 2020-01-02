@@ -3,6 +3,7 @@ module vveird
 import (
   cli
   conf
+  vveird.core
   // gl
   // gg
   glfw
@@ -10,6 +11,7 @@ import (
   // freetype
   time
   vveird.ui
+  vveird.ui.layout
 )
 
 pub fn cmd(config conf.Window) cli.Command {
@@ -37,7 +39,25 @@ pub fn exec(cmd cli.Command) {
   vveird.set_drawer(ui.make_drawer())
 
   // todo adding components
-  // menu := ...
+  // menu := &layout.Menu {
+  //   font: core.Font{}
+  //   dirty: false
+  //   position: core.Position{
+  //     x: 5
+  //     y: 0
+  //   }
+  //   background: core.Color{
+  //     r: 0
+  //     g: 0
+  //     b: 0
+  //     a: 255
+  //   }
+  // }
+  // comp := core.Component{
+  //   brick: menu
+  //   name: 'menu'
+  // }
+  // vveird.drawer.add(comp)
   // left_sidebar := ...
   // right_sidebar := ...
   // content := ...
