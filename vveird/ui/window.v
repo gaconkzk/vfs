@@ -13,6 +13,8 @@ pub fn make_window() Window {
   w := Window {
     width: 800
     height: 600
+    owner: 0
+    cfg: 0
   }
 
   return w
