@@ -11,7 +11,7 @@ import (
 pub struct Configuration {
 pub mut:
   fshare FShare
-  vveird Window
+  vveird Vveird
 }
 
 pub struct FShare {
@@ -20,7 +20,7 @@ pub mut:
   password string
 }
 
-pub struct Window {
+pub struct Vveird {
 pub mut:
   width int
   height int
