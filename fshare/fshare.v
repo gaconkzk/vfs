@@ -13,18 +13,19 @@ const (
 )
 
 fn req(method string, path string, body string, session_id string) http.Response {
-  mut request := http.new_request(method, '$base_url/$path', body) or {
-    panic(err)
+  mut fetch_config := http.FetchConfig {
+    method: method
+    data: body
+    headers: {
+      'User-Agent': 'okhttp/3.6.0'
+      'Content-Type': 'application/json'
+    }
   }
-
-  request.add_header('User-Agent', 'okhttp/3.6.0')
-  request.add_header('Content-Type', 'application/json')
-
   if (session_id != '') {
-    request.add_header('cookie', 'session_id=$session_id')
+    fetch_config.headers['cookie'] = 'session_id=$session_id'
   }
 
-  response := request.do() or {
+  response := http.fetch('$base_url/$path', fetch_config) or {
     panic(err)
   }
 
